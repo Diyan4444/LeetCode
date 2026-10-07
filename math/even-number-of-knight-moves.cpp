@@ -1,0 +1,8 @@
+class Solution {
+public:
+    bool canReach(vector<int>& s, vector<int>& t) 
+    {
+        if (((s[0]+s[1])%2) == ((t[0]+t[1])%2))return true;
+        return false;
+    }
+};
