@@ -1,21 +1,26 @@
 class Solution {
 public:
-    string removeOuterParentheses(string s) 
+    int findShortestSubArray(vector<int>& nums) 
     {
-        int n = s.length();
-        int o=0;
-        string ans="";
-        for(int i=0;i<n;i++)
+        map<int,int> mpp;
+        for(int i: nums)
         {
-            if(s[i]=='(')
+            mpp[i]++;
+        }
+        int m = INT_MIN;
+        for(auto [val,count] : mpp)
+        {
+            m = max(m,count);
+        }
+        int ans = nums.size();
+        for(auto [val,count] : mpp)
+        {
+            if(count==m)
             {
-                if(o>0)ans+=s[i];
-                o++;
-            }
-            if(s[i]==')')
-            {
-                o--;
-                if(o>0)ans+=s[i];
+                int l=0,r=nums.size()-1;
+                while(nums[l]!=val)l++;
+                while(nums[r]!=val)r--;
+                ans = min(ans,r-l+1);
             }
         }
         return ans;

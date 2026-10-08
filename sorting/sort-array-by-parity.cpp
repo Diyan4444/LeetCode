@@ -1,24 +1,18 @@
 class Solution {
 public:
-    string removeOuterParentheses(string s) 
+    vector<int> sortArrayByParity(vector<int>& nums) 
     {
-        int n = s.length();
-        int o=0;
-        string ans="";
-        for(int i=0;i<n;i++)
+        int left = 0;
+        int n = nums.size();
+        for (int i = 0; i < n; i++) 
         {
-            if(s[i]=='(')
+            if (nums[i] % 2 == 0) 
             {
-                if(o>0)ans+=s[i];
-                o++;
-            }
-            if(s[i]==')')
-            {
-                o--;
-                if(o>0)ans+=s[i];
+                swap(nums[left], nums[i]);
+                left++;
             }
         }
-        return ans;
+        return nums; 
     }
 };
 #pragma GCC optimize("Ofast")
@@ -54,3 +48,4 @@ void operator delete(void *, std::size_t) noexcept {}
 
 
 void operator delete[](void *, std::size_t) noexcept {}
+

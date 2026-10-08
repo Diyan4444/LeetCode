@@ -1,24 +1,25 @@
 class Solution {
 public:
-    string removeOuterParentheses(string s) 
+    int arrayNesting(vector<int>& nums) 
     {
-        int n = s.length();
-        int o=0;
-        string ans="";
-        for(int i=0;i<n;i++)
+        int n = nums.size();
+        vector<bool> visited(n, false);
+        int ma = 0;
+        for(int i = 0; i < n; i++)
         {
-            if(s[i]=='(')
+            if(visited[i])
+                continue;
+            int temp = i;
+            int count = 0;
+            while(!visited[temp])
             {
-                if(o>0)ans+=s[i];
-                o++;
+                visited[temp] = true;
+                temp = nums[temp];
+                count++;
             }
-            if(s[i]==')')
-            {
-                o--;
-                if(o>0)ans+=s[i];
-            }
+            ma = max(ma, count);
         }
-        return ans;
+        return ma;
     }
 };
 #pragma GCC optimize("Ofast")

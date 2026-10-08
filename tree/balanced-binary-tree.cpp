@@ -1,24 +1,32 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
 class Solution {
 public:
-    string removeOuterParentheses(string s) 
+    int check(TreeNode* node) {
+        if (!node) return 0;
+
+        int l = check(node->left);
+        if (l == -1) return -1;
+
+        int r = check(node->right);
+        if (r == -1) return -1;
+
+        if (abs(l - r) > 1) return -1;
+
+        return 1 + max(l, r);
+    }
+    bool isBalanced(TreeNode* root)
     {
-        int n = s.length();
-        int o=0;
-        string ans="";
-        for(int i=0;i<n;i++)
-        {
-            if(s[i]=='(')
-            {
-                if(o>0)ans+=s[i];
-                o++;
-            }
-            if(s[i]==')')
-            {
-                o--;
-                if(o>0)ans+=s[i];
-            }
-        }
-        return ans;
+        return check(root)!=-1;
     }
 };
 #pragma GCC optimize("Ofast")
@@ -54,3 +62,4 @@ void operator delete(void *, std::size_t) noexcept {}
 
 
 void operator delete[](void *, std::size_t) noexcept {}
+

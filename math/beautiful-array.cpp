@@ -1,24 +1,28 @@
 class Solution {
 public:
-    string removeOuterParentheses(string s) 
+    vector<int> beautifulArray(int n)
     {
-        int n = s.length();
-        int o=0;
-        string ans="";
-        for(int i=0;i<n;i++)
+        if(n==1)return {1};
+        if(n==2)return {1,2};
+        if(n==3)return {1,3,2};
+        vector<int>ans;
+        ans.push_back(1);
+        while(n > ans.size())
         {
-            if(s[i]=='(')
+            vector<int>temp;
+            for(int i : ans)
             {
-                if(o>0)ans+=s[i];
-                o++;
+                if(2*i - 1 <= n)
+                    temp.push_back(2*i - 1);
             }
-            if(s[i]==')')
+            for(int i : ans)
             {
-                o--;
-                if(o>0)ans+=s[i];
+                if(2*i <= n)
+                    temp.push_back(2*i);
             }
+            ans = temp;
         }
-        return ans;
+        return ans;        
     }
 };
 #pragma GCC optimize("Ofast")
